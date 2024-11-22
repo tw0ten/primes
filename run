@@ -1,13 +1,6 @@
 #!/bin/sh
-rm -rf io/o
-mkdir -p io/o
-
-cc -O3 -Wall -Wextra \
-	-o io/o/spiral \
-	-l raylib -l m \
-	src/spiral.c \
-	-D THREADED
-
 cd io
 
-o/*
+o/write &
+o/spiral
+wait

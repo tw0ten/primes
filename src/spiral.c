@@ -26,20 +26,14 @@ typedef long double F;
 void draw(F w, F h, const N *ns, const T n) {
   w /= 2.0;
   h /= 2.0;
-#ifdef THREADED
-  pthread_mutex_lock(&mutex);
-#endif
   const F s = ns[n - 1], l = w > h ? w : h;
   for (N i = 0; i < n; ++i) {
     const N r = ns[i];
     DrawPixel(w + l * r * cos(r) / s, h + l * r * sin(r) / s, col(r));
   }
-#ifdef THREADED
-  pthread_mutex_unlock(&mutex);
-#endif
 }
 
-int main(int argc, char *argv[]) {
+int main() {
 #ifdef THREADED
   pthread_t t;
   if (pthread_create(&t, NULL, primecounter, NULL) != 0)
@@ -66,6 +60,7 @@ int main(int argc, char *argv[]) {
     BeginDrawing();
 
 #ifdef THREADED
+    pthread_mutex_lock(&mutex);
     ns = primecount;
     i = primescount;
 #else
@@ -80,8 +75,10 @@ int main(int argc, char *argv[]) {
       ++i;
     }
 #endif
-
     draw(w, h, ns, i);
+#ifdef THREADED
+    pthread_mutex_unlock(&mutex);
+#endif
     EndDrawing();
   }
 

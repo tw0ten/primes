@@ -1,0 +1,12 @@
+#!/bin/sh
+mkdir -p io/o
+
+cc -O3 \
+	-o io/o/spiral \
+	-l raylib -l m \
+	src/spiral.c \
+#	-D THREADED
+
+cc -O3 \
+	-o io/o/write \
+	lib/rw.c
