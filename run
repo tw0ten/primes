@@ -1,0 +1,15 @@
+#!/bin/sh
+rm -rf io/o
+mkdir -p io/o
+
+cc() { command cc \
+	-l raylib -l m \
+	-O3 \
+	-o "io/o/$2" \
+	"src/$1"; }
+
+cc spiral.c spiral
+
+cd io
+
+o/*
