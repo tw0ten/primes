@@ -1,9 +1,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+typedef size_t T;
 typedef unsigned long N;
 
-const bool isprime(const N n) {
+bool isprime(const N n) {
   for (N i = 2; i * i <= n; ++i)
     if (n % i == 0)
       return false;
@@ -11,7 +12,7 @@ const bool isprime(const N n) {
 }
 
 N *count(N f, const N t, N *c) {
-  N s = 0xf;
+  T s = 0xf;
   N *ns = malloc(s * sizeof(N));
   if (!ns)
     return NULL;
@@ -36,7 +37,7 @@ N *count(N f, const N t, N *c) {
   return ns;
 }
 
-N *primes(N f, N c) {
+N *primes(N f, T c) {
   N *ns = malloc(c * sizeof(N));
   N j = 0;
 

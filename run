@@ -2,13 +2,11 @@
 rm -rf io/o
 mkdir -p io/o
 
-cc() { command cc \
+cc -O3 -Wall -Wextra \
+	-o io/o/spiral \
 	-l raylib -l m \
-	-O3 \
-	-o "io/o/$2" \
-	"src/$1"; }
-
-cc spiral.c spiral
+	src/spiral.c \
+	-D THREADED
 
 cd io
 
