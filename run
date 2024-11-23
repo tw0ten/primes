@@ -1,6 +1,4 @@
 #!/bin/sh
 cd io
 
-# o/write &
 o/spiral
-wait

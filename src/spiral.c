@@ -7,6 +7,8 @@
 #include <math.h>
 #include <raylib.h>
 
+const Color BGCOL = {0x00, 0x00, 0x00, 0x00};
+
 Color col(N n) {
   const unsigned char a = 0xf0, c = n % 255;
   switch ((n / 255) % 3) {
@@ -34,17 +36,18 @@ void draw(F w, F h, const N *ns, const T n) {
 
 int main() {
 #ifdef THREADED
-  pthread_t t;
-  if (pthread_create(&t, NULL, primecounter, NULL) != 0)
-    return EXIT_FAILURE;
   T i;
   N *ns;
+  pthread_t t;
+  pthread_create(&t, NULL, primecounter, NULL);
 #else
+  const char *p = "o/bin";
   T i = 1, n = i;
-  N *ns = primes(2, n);
+  N *ns = malloc(i * sizeof(N));
+  ns[0] = 2;
 #endif
 
-  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_TRANSPARENT);
   SetTargetFPS(64);
   int w = 256, h = w;
   InitWindow(w, h, "spiral");
@@ -53,16 +56,15 @@ int main() {
     w = GetScreenWidth();
     h = GetScreenHeight();
 
-    ClearBackground(BLACK);
+    ClearBackground(BGCOL);
     BeginDrawing();
-
 #ifdef THREADED
     pthread_mutex_lock(&mutex);
     ns = primecount;
     i = primescount;
 #else
     if (!IsKeyDown(KEY_SPACE)) {
-      if (i >= n) {
+      if (i == n) {
         n *= 2;
         ns = realloc(ns, n * sizeof(N));
       }

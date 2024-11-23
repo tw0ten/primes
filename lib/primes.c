@@ -18,7 +18,7 @@ N *count(N f, const N t, N *c) {
 
   while (f <= t) {
     if (isprime(f)) {
-      if (*c >= s) {
+      if (*c == s) {
         s *= 2;
         N *r = realloc(ns, s * sizeof(N));
         if (!r) {
@@ -41,9 +41,8 @@ N *primes(N f, T c) {
   N j = 0;
 
   while (j < c) {
-    if (isprime(f)) {
+    if (isprime(f))
       ns[j++] = f;
-    }
     ++f;
   }
 
@@ -51,8 +50,8 @@ N *primes(N f, T c) {
 }
 
 N next(N f) {
-  do {
+  do
     ++f;
-  } while (!isprime(f));
+  while (!isprime(f));
   return f;
 }

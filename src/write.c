@@ -7,7 +7,7 @@ int main() {
   int j = 0;
   while ((i = next(i)) != 0) {
     fwrite(&i, sizeof(N), 1, f);
-    if (++j % 128 == 0)
+    if (++j % 1024 == 0)
       fflush(f);
   }
   fclose(f);
