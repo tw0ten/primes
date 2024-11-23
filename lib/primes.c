@@ -1,14 +1,13 @@
-#include <stdbool.h>
 #include <stdlib.h>
 
 typedef size_t T;
 typedef unsigned long N;
 
-bool isprime(const N n) {
+int isprime(const N n) {
   for (N i = 2; i * i <= n; ++i)
     if (n % i == 0)
-      return false;
-  return true;
+      return 0;
+  return 1;
 }
 
 N *count(N f, const N t, N *c) {

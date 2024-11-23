@@ -1,4 +1,4 @@
-#include "../lib/primes.c"
+#include "primes.c"
 
 #include <stdio.h>
 
@@ -29,17 +29,4 @@ N last(const char *p) {
   }
   fclose(f);
   return n;
-}
-
-int main() {
-  const char *PATH = "o/bin";
-  FILE *f = fopen(PATH, "ab");
-  N i = last(PATH);
-  int j = 0;
-  while ((i = next(i)) != 0) {
-    fwrite(&i, sizeof(N), 1, f);
-    if (++j % 128 == 0)
-      fflush(f);
-  }
-  fclose(f);
 }

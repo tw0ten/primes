@@ -5,8 +5,8 @@ cc -O3 \
 	-o io/o/spiral \
 	-l raylib -l m \
 	src/spiral.c \
-#	-D THREADED
+#	-D THREADED \
 
 cc -O3 \
 	-o io/o/write \
-	lib/rw.c
+	src/write.c \

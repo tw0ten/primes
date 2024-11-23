@@ -4,13 +4,12 @@
 #include "../lib/primes.c"
 #endif
 
-#include <limits.h>
 #include <math.h>
 #include <raylib.h>
 
 Color col(N n) {
-  const unsigned char a = 0xf0, c = n % UCHAR_MAX;
-  switch ((n / UCHAR_MAX) % 3) {
+  const unsigned char a = 0xf0, c = n % 255;
+  switch ((n / 255) % 3) {
   case 0:
     return (Color){255 - c, c, 0, a};
   case 1:
@@ -43,8 +42,6 @@ int main() {
 #else
   T i = 1, n = i;
   N *ns = primes(2, n);
-  if (!ns)
-    return EXIT_FAILURE;
 #endif
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -68,8 +65,6 @@ int main() {
       if (i >= n) {
         n *= 2;
         ns = realloc(ns, n * sizeof(N));
-        if (!ns)
-          return EXIT_FAILURE;
       }
       ns[i] = next(ns[i - 1]);
       ++i;

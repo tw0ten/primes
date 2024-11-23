@@ -1,4 +1,5 @@
 #include "primes.c"
+
 #include <pthread.h>
 #include <stdio.h>
 
