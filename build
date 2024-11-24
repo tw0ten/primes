@@ -1,12 +1,12 @@
 #!/bin/sh
 mkdir -p io/o
 
-cc -O3 \
+cc -O3 -Wall -Wextra \
 	-o io/o/spiral \
-	-l raylib -l m \
 	src/spiral.c \
+	-l raylib -l m \
 #	-D THREADED \
 
-cc -O3 \
+cc -O3 -Wall -Wextra \
 	-o io/o/write \
 	src/write.c \
