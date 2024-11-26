@@ -7,22 +7,26 @@
 #include <math.h>
 #include <raylib.h>
 
-const Color BGCOL = {0x00, 0x00, 0x00, 0x00};
+typedef long double F;
 
+#ifdef RGB
 Color col(N n) {
-	const unsigned char a = 0xf0, c = n % 255;
-	switch ((n / 255) % 3) {
+	const unsigned char a = 0xf0, c = n % 0xff;
+	switch ((n / 0xff) % 3) {
 	case 0:
-		return (Color){255 - c, c, 0, a};
+		return (Color){0xff - c, c, 0, a};
 	case 1:
-		return (Color){0, 255 - c, c, a};
+		return (Color){0, 0xff - c, c, a};
 	case 2:
-		return (Color){c, 0, 255 - c, a};
+		return (Color){c, 0, 0xff - c, a};
 	}
 	return WHITE;
 }
+#else
+const Color COL = {0xff, 0xff, 0xff, 0xf0};
+#endif
 
-typedef long double F;
+const Color BG = {0x00, 0x00, 0x00, 0x00};
 
 void draw(F w, F h, const N *ns, const T n) {
 	w /= 2.0;
@@ -30,7 +34,10 @@ void draw(F w, F h, const N *ns, const T n) {
 	const F s = ns[n - 1], l = w > h ? w : h;
 	for (N i = 0; i < n; ++i) {
 		const N r = ns[i];
-		DrawPixel(w + l * r * cos(r) / s, h + l * r * sin(r) / s, col(r));
+#ifdef RGB
+		const Color COL = col(r);
+#endif
+		DrawPixel(w + l * r * cos(r) / s, h + l * r * sin(r) / s, COL);
 	}
 }
 
@@ -58,7 +65,7 @@ int main() {
 		w = GetScreenWidth();
 		h = GetScreenHeight();
 
-		ClearBackground(BGCOL);
+		ClearBackground(BG);
 		BeginDrawing();
 #ifdef THREADED
 		pthread_mutex_lock(&mutex);

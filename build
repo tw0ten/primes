@@ -5,6 +5,7 @@ cc -O3 -Wall -Wextra \
 	-o io/o/spiral \
 	src/spiral.c \
 	-l raylib -l m \
+#	-D RGB \
 #	-D THREADED \
 
 cc -O3 -Wall -Wextra \
