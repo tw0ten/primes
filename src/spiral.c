@@ -41,9 +41,9 @@ int main() {
 	pthread_t t;
 	pthread_create(&t, NULL, primecounter, NULL);
 #else
+	T n = 1;
 	i = 1;
-	T n = i;
-	ns = malloc(i * sizeof(N));
+	ns = malloc(n * sizeof(N));
 	ns[0] = 2;
 #endif
 

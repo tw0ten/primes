@@ -10,6 +10,12 @@ int isprime(const N n) {
 	return 1;
 }
 
+int isrealprime(const N n) {
+	if (n < 2)
+		return 0;
+	return isprime(n);
+}
+
 N *count(N f, const N t, N *c) {
 	T s = 0xf;
 	N *ns = malloc(s * sizeof(N));
@@ -36,22 +42,19 @@ N *count(N f, const N t, N *c) {
 	return ns;
 }
 
-N *primes(N f, T c) {
-	N *ns = malloc(c * sizeof(N));
-	N j = 0;
-
-	while (j < c) {
-		if (isprime(f))
-			ns[j++] = f;
-		++f;
-	}
-
-	return ns;
-}
-
 N next(N f) {
 	do
 		++f;
 	while (!isprime(f));
 	return f;
+}
+
+N *primes(N f, T c) {
+	N *ns = malloc(c * sizeof(N));
+
+	ns[0] = next(f);
+	for (T i = 1; i < c; i++)
+		ns[i] = next(ns[i - 1]);
+
+	return ns;
 }

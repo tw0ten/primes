@@ -7,17 +7,18 @@ T primescount = 1;
 N *primecount;
 
 void *primecounter() {
-	T cap = 1;
-	primecount = malloc(cap * sizeof(N));
-	primecount[0] = 2;
-	N i = 3;
+	pthread_mutex_lock(&mutex);
+	T n = primescount;
+	primecount = malloc(n * sizeof(N));
+	pthread_mutex_unlock(&mutex);
+	N i = 2;
 	while (1) {
 		if (isprime(i)) {
 			pthread_mutex_lock(&mutex);
 
-			if (primescount == cap) {
-				cap *= 2;
-				primecount = realloc(primecount, cap * sizeof(N));
+			if (primescount == n) {
+				n *= 2;
+				primecount = realloc(primecount, n * sizeof(N));
 			}
 			primecount[primescount] = i;
 			++primescount;
