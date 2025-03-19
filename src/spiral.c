@@ -1,3 +1,7 @@
+#ifndef FPS
+#define FPS 60
+#endif
+
 #ifdef THREADED
 #include "../lib/thread.c"
 #else
@@ -57,7 +61,7 @@ int main() {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 	SetConfigFlags(FLAG_WINDOW_TRANSPARENT);
 	SetConfigFlags(FLAG_WINDOW_UNDECORATED | FLAG_WINDOW_MOUSE_PASSTHROUGH);
-	SetTargetFPS(64);
+	SetTargetFPS(FPS);
 	int w = 256, h = w;
 	InitWindow(w, h, "spiral");
 

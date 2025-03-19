@@ -1,10 +1,13 @@
 #!/bin/sh
+set -e
+
 mkdir -p io/o
 
 cc -O3 -Wall -Wextra \
 	-o io/o/spiral \
 	src/spiral.c \
 	-l raylib -l m \
+	-D FPS=144 \
 #	-D RGB \
 #	-D THREADED \
 
