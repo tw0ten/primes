@@ -17,12 +17,13 @@
 		</style>
 	</head>
 	<body>
-		<canvas id="i"></canvas>
+		<canvas id="i" style="image-rendering: pixelated"></canvas>
 		<script>
 			const i = document.getElementById("i").getContext("2d");
-			let w, h, m;
-			let wh, hh;
-			window.onresize = (e) => {
+			const l = [2];
+			let w, h, wh, hh, m;
+
+			window.onresize = () => {
 				w = i.canvas.width = i.canvas.clientWidth;
 				h = i.canvas.height = i.canvas.clientHeight;
 				i.fillStyle = "rgba(255,255,255,0.8)";
@@ -32,18 +33,14 @@
 			};
 			window.onresize();
 
-			const l = [2];
 			const p = (n) => {
-				for (let i = 2; i * i <= n; ++i) {
-					if (n % i == 0) {
-						return false;
-					}
-				}
+				for (let i = 2; i * i <= n; ++i) if (n % i === 0) return false;
 				return true;
 			};
-			const n = (n) => {
-				do ++n; while (!p(n));
-				return n;
+
+			const n = (f) => {
+				while (!p(++f));
+				return f;
 			};
 
 			const a = () => {
@@ -61,6 +58,7 @@
 				}
 				window.requestAnimationFrame(a);
 			};
+
 			a();
 		</script>
 	</body>
