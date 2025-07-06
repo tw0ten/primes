@@ -1,20 +1,20 @@
 #!/bin/sh
 set -e
 
-mkdir -p io/o
+mkdir -p .io/o
 
 cc -O3 -Wall -Wextra \
-	-o io/o/spiral \
+	-o .io/o/spiral \
 	src/spiral.c \
 	-l raylib -l m \
-	-D FPS=144 \
+#	-D FPS=144 \
 #	-D RGB \
 #	-D THREADED \
 
 cc -O3 -Wall -Wextra \
-	-o io/o/write \
+	-o .io/o/write \
 	src/write.c \
 
 cc -O3 -Wall -Wextra \
-	-o io/o/isprime \
+	-o .io/o/isprime \
 	src/isprime.c \

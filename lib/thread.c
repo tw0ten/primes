@@ -4,9 +4,9 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 T primescount = 1;
-N *primecount;
+N* primecount;
 
-void *primecounter() {
+void* primecounter(void* arg) {
 	pthread_mutex_lock(&mutex);
 	T n = primescount;
 	primecount = malloc(n * sizeof(N));

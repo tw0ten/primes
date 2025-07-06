@@ -1,5 +1,5 @@
 #ifndef FPS
-#define FPS 60
+#define FPS 0
 #endif
 
 #ifdef THREADED
@@ -12,6 +12,8 @@
 #include <raylib.h>
 
 typedef long double F;
+
+#define FIT 0
 
 #ifdef RGB
 Color col(N n) {
@@ -32,10 +34,19 @@ const Color COL = {0xff, 0xff, 0xff, 0xf0};
 
 const Color BG = {0x00, 0x00, 0x00, 0x00};
 
-void draw(F w, F h, const N *ns, const T n) {
+void draw(F w, F h, const N* ns, const T n) {
 	w /= 2.0;
 	h /= 2.0;
-	const F s = ns[n - 1], l = w > h ? w : h;
+	const F s = ns[n - 1];
+#if FIT == 0
+	const F l = sqrt(w * w + h * h);
+#endif
+#if FIT == 1
+	const F l = w > h ? w : h;
+#endif
+#if FIT == 2
+	const F l = w < h ? w : h;
+#endif
 	for (N i = 0; i < n; ++i) {
 		const N r = ns[i];
 #ifdef RGB
@@ -45,9 +56,9 @@ void draw(F w, F h, const N *ns, const T n) {
 	}
 }
 
-int main() {
+int main(int argc, char** argv) {
 	T i;
-	N *ns;
+	N* ns;
 #ifdef THREADED
 	pthread_t t;
 	pthread_create(&t, NULL, primecounter, NULL);
